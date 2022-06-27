@@ -1,0 +1,16 @@
+name: 'Damm DevOps - Gitflow branch naming restriction'
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Verify Gitflow branch naming restriction
+    steps:
+      - name: Verify Gitflow branch naming restriction
+        id: branch-naming-restriction
+        uses: devops-damm-es/branch-naming-restriction@v1.0.0
+        with:
+          admin_pat_token: ${{ secrets.ADMIN_PAT_TOKEN }}
+
+      - if: ${{ always() }}
+        name: Print branch-naming-allowed
+        run: echo "${{ steps.branch-naming-restriction.outputs.branch_naming_allowed }}"
