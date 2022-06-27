@@ -1,0 +1,23 @@
+name: 'Damm DevOps - Gitflow hotfix branch merge'
+on: 
+  pull_request:
+    types: [closed]
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    name: Execute Gitflow hotfix branch merge
+    steps:
+      - name: Execute Gitflow hotfix branch merge
+        id: hotfix-branch-merge
+        uses: devops-damm-es/hotfix-branch-merge@v1.0.0
+        with:
+          admin_pat_token: ${{ secrets.ADMIN_PAT_TOKEN }}
+
+      - if: ${{ always() }}
+        name: Print is_hotfix_branch_merge
+        run: echo "${{ steps.hotfix-branch-merge.outputs.is_hotfix_branch_merge }}"
+
+      - if: ${{ always() }}
+        name: Print hotfix_branch_merge_success
+        run: echo "${{ steps.hotfix-branch-merge.outputs.hotfix_branch_merge_success }}"
