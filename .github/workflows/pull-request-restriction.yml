@@ -1,0 +1,16 @@
+name: 'Damm DevOps - Gitflow pull request restriction'
+on: 
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Verify Gitflow pull request restriction
+    steps:
+      - name: Verify Gitflow pull request restriction
+        id: pull-request-restriction
+        uses: devops-damm-es/pull-request-restriction@v1.0.0
+
+      - if: ${{ always() }}
+        name: Print pull-request-allowed
+        run: echo "${{ steps.pull-request-restriction.outputs.pull_request_allowed }}"
